@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {addTodo, completeTodo, delTodo, setVisibilityFilter, VisibilityFilters} from '../store/actions/action'
+import {addTodo, completeTodo, delTodo, setVisibilityFilter, VisibilityFilters} from '../store/actions/todo'
 import AddTodo from '../components/todo/AddTodo'
 import TodoList from '../components/todo/TodoList'
 import Selecter from '../components/todo/Selecter'
 
-class App extends Component {
+class TodoApp extends Component {
     render() {
         const {dispatch, visibleTodos, visibilityFilter} = this.props
         return (
@@ -30,7 +30,7 @@ class App extends Component {
     }
 }
 
-App.propTypes = {
+TodoApp.propTypes = {
     visibleTodos: PropTypes.arrayOf(PropTypes.shape({
         text: PropTypes.string.isRequired,
         completed: PropTypes.bool.isRequired
@@ -45,11 +45,13 @@ App.propTypes = {
 function selectTodos(todos, filter) {
     switch (filter) {
         case VisibilityFilters.SHOW_ALL:
-            return todos;
+            return todos
         case VisibilityFilters.SHOW_COMPLETED:
-            return todos.filter(todo => todo.completed);
+            return todos.filter(todo => todo.completed)
         case VisibilityFilters.SHOW_ACTIVE:
-            return todos.filter(todo => !todo.completed);
+            return todos.filter(todo => !todo.completed)
+        default:
+            return todos
     }
 }
 
@@ -61,4 +63,4 @@ function select(state) {
 }
 
 
-export default connect(select)(App)
+export default connect(select)(TodoApp)

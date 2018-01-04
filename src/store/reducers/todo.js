@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO,DEL_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from '../actions/action'
+import { ADD_TODO,DEL_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from '../actions/todo'
 const { SHOW_ALL } = VisibilityFilters
 
 function visibilityFilter(state = SHOW_ALL, action) {
@@ -13,22 +13,25 @@ function visibilityFilter(state = SHOW_ALL, action) {
 
 const defaultState = [
     {
-        text:'row one',
-        completed:false
-    },
-    {
-        text:'row two',
-        completed:false
-    },
-    {
-        text:'row three',
+        text:'create-react-app 构建web应用',
         completed:true
+    },
+    {
+        text:'学习react-router',
+        completed:false
+    },
+    {
+        text:'学习redux',
+        completed:false
     }
 ]
 
 function todos(state = defaultState, action) {
     switch (action.type) {
         case ADD_TODO:
+            if(!action.text){
+                return state
+            }
             return [
                 ...state,
                 {
@@ -37,7 +40,7 @@ function todos(state = defaultState, action) {
                 }
             ]
         case DEL_TODO:
-            let newState = state.splice(action.index,1)
+            state.splice(action.index,1)
             return Object.assign([],state)
         case COMPLETE_TODO:
             return state.map((todo, index) => {

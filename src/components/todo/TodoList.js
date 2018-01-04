@@ -17,8 +17,8 @@ class TodoList extends Component{
                                 textDecoration: item.completed ? 'line-through' : 'none'
                             }}
                             actions={[
-                                <a onClick={()=>onDelClick(index)}>del</a>,
-                                <a onClick={()=>onTodoClick(index)}>complete</a>
+                                <a onClick={()=>onTodoClick(index)}>完成</a>,
+                                <a onClick={()=>onDelClick(index)}>删除</a>,
                             ]}
                         >{item.text}</List.Item>
                     )}

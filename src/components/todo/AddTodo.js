@@ -23,6 +23,10 @@ class AddTodo extends Component {
     handleClick(e) {
         const node = document.querySelector('#input')
         const text = node.value.trim()
+        if(!text){
+            console.log('NOT NULL')
+            return
+        }
         this.props.onAddClick(text)
         node.value = ''
     }

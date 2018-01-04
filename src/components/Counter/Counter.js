@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
+import {Button} from 'antd'
+const ButtonGroup = Button.Group
 
 class Counter extends Component {
     constructor(props) {
@@ -11,19 +12,14 @@ class Counter extends Component {
         const { value, onIncrement, onDecrement } = this.props
         return (
             <div>
-                Clicked: {value} times
+                Clicked: {value} &nbsp;times
+                <br/>
+                <ButtonGroup>
+                    <Button onClick={()=>onIncrement()}>+</Button>
+                    <Button onClick={()=>onDecrement()}>-</Button>
+                </ButtonGroup>
                 {' '}
                 <br/>
-                <button onClick={onIncrement}>
-                    +
-                </button>
-                {' '}
-                <button onClick={onDecrement}>
-                    -
-                </button>
-                {' '}
-                <br/>
-                <Link to='/home'>To Home</Link>
             </div>
         )
     }

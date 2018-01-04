@@ -1,15 +1,15 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Todo from '../container/TodoApp'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import todoApp from '../store/reducers/reducer'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import todoApp from '../store/reducers/todo'
 
 const store = createStore(todoApp)
 
-const TodoApp = ()=>(
+const TodoApp = () => (
 
     <Provider store={store}>
-        <Todo />
+        <Todo/>
     </Provider>
 )
 

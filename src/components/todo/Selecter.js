@@ -17,7 +17,6 @@ class Footer extends Component{
     }
 
     render() {
-        const size = 'default'
         return (
             <Col span={24}>
                 <br/>
