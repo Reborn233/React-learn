@@ -4,10 +4,6 @@ import {Button} from 'antd'
 const ButtonGroup = Button.Group
 
 class Counter extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         const { value, onIncrement, onDecrement } = this.props
         return (

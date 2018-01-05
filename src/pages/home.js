@@ -1,16 +1,23 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
-import {Timeline, Layout,} from 'antd'
+import {NavLink} from 'react-router-dom'
+import {Timeline, Layout, Tag} from 'antd'
 import {list} from '../lib/data/data'
+
+const newList = list.sort((x, y) =>
+    Date.parse(y.date) - Date.parse(x.date)
+)
 
 const getTimeLine = (list) => {
     return list.map((item) => (
         <Timeline.Item key={item.title}>
-            <Link to={item.link}>{item.title}</Link>
+            <NavLink to={item.link} activeClassName='active'>
+                <Tag color="cyan">{item.date}</Tag>
+                <br/>
+                {item.title}
+            </NavLink>
         </Timeline.Item>
     ))
 }
-
 
 class Home extends Component {
     render() {
@@ -19,7 +26,7 @@ class Home extends Component {
                 <h1>日常学习React进度</h1>
                 <br/>
                 <Timeline>
-                    {getTimeLine(list)}
+                    {getTimeLine(newList)}
                 </Timeline>
             </Layout>
         )

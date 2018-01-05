@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "antd": "^3.1.0",
+    "history": "^4.7.2",
+    "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -11,7 +13,9 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",
-    "redux-devtools": "^3.4.1"
+    "redux-devtools": "^3.4.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -23,5 +27,6 @@
     "babel-plugin-import": "^1.6.3",
     "react-app-rewire-less": "^2.1.0",
     "react-app-rewired": "^1.4.0"
-  }
+  },
+  "proxy":"https://api.douban.com"
 }

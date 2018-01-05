@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {increase, decrease} from '../store/actions/counter'
 import Counter from '../components/Counter/Counter'
+import history from "../lib/tools/history"
 
 class CountApp extends Component {
     render() {
         const {dispatch, visibleCount} = this.props
         return (
-            <div style={{padding: 24}}>
+            <div>
                 <Counter
                     value={visibleCount.count}
                     onIncrement={() => dispatch(increase(1))
@@ -16,6 +17,7 @@ class CountApp extends Component {
                     onDecrement={() => dispatch(decrease(1))
                     }
                 />
+                <a onClick={history.goBack}>back</a>
             </div>
         )
     }

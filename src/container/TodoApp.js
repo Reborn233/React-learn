@@ -1,30 +1,35 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {addTodo, completeTodo, delTodo, setVisibilityFilter, VisibilityFilters} from '../store/actions/todo'
+import {addTodo, completeTodo, delTodo,undo,redo, setVisibilityFilter, VisibilityFilters} from '../store/actions/todo'
 import AddTodo from '../components/todo/AddTodo'
 import TodoList from '../components/todo/TodoList'
 import Selecter from '../components/todo/Selecter'
+import history from "../lib/tools/history"
 
 class TodoApp extends Component {
     render() {
-        const {dispatch, visibleTodos, visibilityFilter} = this.props
+        const {dispatch, visibleTodos, visibilityFilter,undoDisabled,redoDisabled} = this.props
         return (
-            <div style={{padding:24}}>
+            <div>
                 <AddTodo
                     onAddClick={text =>
                         dispatch(addTodo(text))
                     }/>
                 <Selecter
                     filter={visibilityFilter}
-                    onFilterChange={filter =>
-                        dispatch(setVisibilityFilter(filter))
-                    }/>
+                    onFilterChange={nextFilter =>dispatch(setVisibilityFilter(nextFilter))}
+                    onUndo={() => dispatch(undo())}
+                    onRedo={() => dispatch(redo())}
+                    undoDisabled={undoDisabled}
+                    redoDisabled={redoDisabled}
+                />
                 <TodoList
                     todos={visibleTodos}
                     onTodoClick={index => dispatch(completeTodo(index))}
                     onDelClick={index => dispatch(delTodo((index)))}
                 />
+                <a onClick={history.goBack}>back</a>
             </div>
         )
     }
@@ -56,8 +61,11 @@ function selectTodos(todos, filter) {
 }
 
 function select(state) {
+    const {past, present, future} = state.undoableTodos
     return {
-        visibleTodos: selectTodos(state.todos, state.visibilityFilter),
+        undoDisabled: past.length === 0,
+        redoDisabled: future.length === 0,
+        visibleTodos: selectTodos(present, state.visibilityFilter),
         visibilityFilter: state.visibilityFilter
     };
 }

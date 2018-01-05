@@ -6,6 +6,8 @@ export const ADD_TODO = 'ADD_TODO'
 export const DEL_TODO = 'DEL_TODO'
 export const COMPLETE_TODO = 'COMPLETE_TODO'
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
+export const UNDO = 'UNDO'
+export const REDO = 'REDO'
 
 /*
  * 其它的常量
@@ -35,4 +37,12 @@ export function completeTodo(index) {
 
 export function setVisibilityFilter(filter) {
     return { type: SET_VISIBILITY_FILTER, filter }
+}
+
+export function undo(index) {
+    return { type: UNDO, index }
+}
+
+export function redo(index) {
+    return { type: REDO, index }
 }
