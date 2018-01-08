@@ -11,6 +11,7 @@ export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
 export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const TAGS = 'TAGS'
 
 /*
 * 函数
@@ -42,17 +43,24 @@ export function receivePosts(subreddit, json) {
         type: RECEIVE_POSTS,
         subreddit,
         posts: json.subjects ? json.subjects : [],
+        total: json.total,
+        start: json.start,
         receivedAt: Date.now()
     }
 }
 
-function fetchPosts(subreddit) {
-    const url = `/v2/movie/search?tag=${subreddit}`
+function fetchPosts(subreddit,start) {
+    console.log(subreddit,start)
+    const url = `/v2/movie/search?tag=${subreddit}&&start=${start}`
     return dispatch => {
         dispatch(requestPosts(subreddit))
         return fetch(url)
             .then(response => response.json())
             .then(json => dispatch(receivePosts(subreddit, json)))
+            .catch(err => {
+                console.log(err)
+                alert(err)
+            })
     }
 }
 
@@ -67,7 +75,7 @@ function shouldFetchPosts(state, subreddit) {
     }
 }
 
-export function fetchPostsIfNeeded(subreddit) {
+export function fetchPostsIfNeeded(subreddit, start) {
 
     // 注意这个函数也接收了 getState() 方法
     // 它让你选择接下来 dispatch 什么。
@@ -78,7 +86,7 @@ export function fetchPostsIfNeeded(subreddit) {
     return (dispatch, getState) => {
         if (shouldFetchPosts(getState(), subreddit)) {
             // 在 thunk 里 dispatch 另一个 thunk！
-            return dispatch(fetchPosts(subreddit))
+            return dispatch(fetchPosts(subreddit, start))
         } else {
             // 告诉调用代码不需要再等待。
             return Promise.resolve()

@@ -5,10 +5,9 @@ import douban from '../store/store/bean'
 
 const store = douban()
 
-const Beans = () => (
-
+const Beans = ({match}) => (
     <Provider store={store}>
-        <Bean/>
+        <Bean match={match}/>
     </Provider>
 )
 

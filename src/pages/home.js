@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {NavLink} from 'react-router-dom'
-import {Timeline, Layout, Tag} from 'antd'
+import {Timeline, Tag} from 'antd'
 import {list} from '../lib/data/data'
 
 const newList = list.sort((x, y) =>
@@ -22,13 +22,13 @@ const getTimeLine = (list) => {
 class Home extends Component {
     render() {
         return (
-            <Layout style={{padding: 24, height: '100%'}}>
+            <div style={{padding: 24, height: '100%'}}>
                 <h1>日常学习React进度</h1>
                 <br/>
                 <Timeline>
                     {getTimeLine(newList)}
                 </Timeline>
-            </Layout>
+            </div>
         )
     }
 }

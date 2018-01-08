@@ -1,14 +1,17 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import {
     SELECT_SUBREDDIT, INVALIDATE_SUBREDDIT,
-    REQUEST_POSTS, RECEIVE_POSTS
+    REQUEST_POSTS, RECEIVE_POSTS, TAGS
 } from '../actions/bean'
 
+const defaultTags = ['剧情', '爱情', '喜剧', '科幻', '动作', '悬疑', '犯罪', '恐怖', '青春', '励志', '战争', '文艺', '黑色幽默', '传记', '情色', '暴力', '音乐', '家庭']
 const defaultState = '剧情'
 const defaultPostState = {
     isFetching: false,
     didInvalidate: false,
-    items: []
+    items: [],
+    total: 0,
+    start: 0,
 }
 
 function selectedSubreddit(state = defaultState, action) {
@@ -36,8 +39,19 @@ function posts(state = defaultPostState, action) {
                 isFetching: false,
                 didInvalidate: false,
                 items: action.posts,
+                total: action.total,
+                start: action.start,
                 lastUpdated: action.receivedAt
             })
+        default:
+            return state
+    }
+}
+
+function tags(state = defaultTags, action) {
+    switch (action.type) {
+        case TAGS:
+            return state
         default:
             return state
     }
@@ -58,7 +72,8 @@ function postsBySubreddit(state = {}, action) {
 
 const rootReducer = combineReducers({
     postsBySubreddit,
-    selectedSubreddit
+    selectedSubreddit,
+    tags,
 })
 
 export default rootReducer

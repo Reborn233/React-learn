@@ -22,6 +22,6 @@ export const list = [
     {
         title: '豆瓣电影Api',
         date:'2018-01-08',
-        link: '/bean'
+        link: '/bean',
     },
 ]
