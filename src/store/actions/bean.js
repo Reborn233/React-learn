@@ -41,7 +41,7 @@ export function receivePosts(subreddit, json) {
     return {
         type: RECEIVE_POSTS,
         subreddit,
-        posts: json.subjects?json.subjects:[],
+        posts: json.subjects ? json.subjects : [],
         receivedAt: Date.now()
     }
 }
@@ -55,6 +55,7 @@ function fetchPosts(subreddit) {
             .then(json => dispatch(receivePosts(subreddit, json)))
     }
 }
+
 function shouldFetchPosts(state, subreddit) {
     const posts = state.postsBySubreddit[subreddit]
     if (!posts) {
