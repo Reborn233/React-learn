@@ -19,4 +19,9 @@ export const list = [
         date:'2018-01-05',
         link: '/router'
     },
+    {
+        title: '豆瓣电影Api',
+        date:'2018-01-08',
+        link: '/bean'
+    },
 ]

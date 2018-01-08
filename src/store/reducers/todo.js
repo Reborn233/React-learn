@@ -17,15 +17,18 @@ const defaultState = {
     present: [
         {
             text: 'create-react-app 构建web应用',
-            completed: true
+            completed: true,
+            deleted:false
         },
         {
             text: '学习react-router',
-            completed: false
+            completed: false,
+            deleted:false
         },
         {
             text: '学习redux',
-            completed: false
+            completed: false,
+            deleted:false
         }
     ],
     future: []
@@ -41,12 +44,19 @@ function todos(state = defaultState, action) {
                 ...state,
                 {
                     text: action.text,
-                    completed: false
+                    completed: false,
+                    deleted:false
                 }
             ]
         case DEL_TODO:
-            state.splice(action.index, 1)
-            return Object.assign([], state)
+            return state.map((todo, index) => {
+                if (index === action.index) {
+                    return Object.assign({}, todo, {
+                        deleted: true
+                    })
+                }
+                return todo
+            })
         case COMPLETE_TODO:
             return state.map((todo, index) => {
                 if (index === action.index) {

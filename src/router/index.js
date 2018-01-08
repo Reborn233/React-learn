@@ -10,6 +10,7 @@ import TodoApp from '../pages/TodoApp'
 import Count from '../pages/Counter'
 import Asynaction from '../pages/Asynaction'
 import RoutePage from '../pages/Router'
+import BeanApp from '../pages/Bean'
 
 const {Content,Sider} = Layout
 
@@ -24,6 +25,7 @@ const route = () => (
                 <Route path='/count' component={Count}/>
                 <Route path='/Asynaction' component={Asynaction}/>
                 <Route path='/router' component={RoutePage}/>
+                <Route path='/bean' component={BeanApp}/>
             </Content>
         </Layout>
     </Router>

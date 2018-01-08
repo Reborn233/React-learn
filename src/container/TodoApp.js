@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {addTodo, completeTodo, delTodo,undo,redo, setVisibilityFilter, VisibilityFilters} from '../store/actions/todo'
+import {addTodo, completeTodo, delTodo, undo, redo, setVisibilityFilter, VisibilityFilters} from '../store/actions/todo'
 import AddTodo from '../components/todo/AddTodo'
 import TodoList from '../components/todo/TodoList'
 import Selecter from '../components/todo/Selecter'
@@ -9,7 +9,7 @@ import history from "../lib/tools/history"
 
 class TodoApp extends Component {
     render() {
-        const {dispatch, visibleTodos, visibilityFilter,undoDisabled,redoDisabled} = this.props
+        const {dispatch, visibleTodos, visibilityFilter, undoDisabled, redoDisabled} = this.props
         return (
             <div>
                 <AddTodo
@@ -18,7 +18,7 @@ class TodoApp extends Component {
                     }/>
                 <Selecter
                     filter={visibilityFilter}
-                    onFilterChange={nextFilter =>dispatch(setVisibilityFilter(nextFilter))}
+                    onFilterChange={nextFilter => dispatch(setVisibilityFilter(nextFilter))}
                     onUndo={() => dispatch(undo())}
                     onRedo={() => dispatch(redo())}
                     undoDisabled={undoDisabled}
@@ -50,11 +50,11 @@ TodoApp.propTypes = {
 function selectTodos(todos, filter) {
     switch (filter) {
         case VisibilityFilters.SHOW_ALL:
-            return todos
+            return todos.filter(todo => !todo.deleted)
         case VisibilityFilters.SHOW_COMPLETED:
-            return todos.filter(todo => todo.completed)
+            return todos.filter(todo => todo.completed && !todo.deleted)
         case VisibilityFilters.SHOW_ACTIVE:
-            return todos.filter(todo => !todo.completed)
+            return todos.filter(todo => !todo.completed && !todo.deleted)
         default:
             return todos
     }
